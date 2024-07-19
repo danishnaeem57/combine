@@ -52,10 +52,6 @@ final class FetchUsersUseCaseTests: XCTestCase {
 
         waitForExpectations(timeout: 1.0, handler: nil)
         
-        waitForExpectations(timeout: 1.0) { error in
-            <#code#>
-        }
-
         // Then
         XCTAssertNotNil(receivedUsers)
         XCTAssertNil(receivedError)
