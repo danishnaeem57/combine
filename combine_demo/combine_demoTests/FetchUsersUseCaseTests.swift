@@ -51,6 +51,39 @@ final class FetchUsersUseCaseTests: XCTestCase {
             .store(in: &cancellables)
 
         waitForExpectations(timeout: 1.0, handler: nil)
+        
+        waitForExpectations(timeout: 1.0) { error in
+            <#code#>
+        }
+
+        // Then
+        XCTAssertNotNil(receivedUsers)
+        XCTAssertNil(receivedError)
+        XCTAssertEqual(expectedUsers, receivedUsers, "equalitty")
+    }
+    
+    func testFetchUsersSuccess2() {
+        // Given
+        let expectedUsers: [DTOUser] = []//[DTOUser(id: 1, name: "danish", username: "danishnaeem57", email: "danishnaeem57@gmail.com")]
+        mockRepository.users = expectedUsers
+        
+        // When
+        var receivedUsers: [DTOUser]?
+        var receivedError: APIError?
+        let expectation = self.expectation(description: "FetchUsers")
+        
+        usecase.execute(abc: true)
+            .sink(receiveCompletion: { completion in
+                if case let .failure(error) = completion {
+                    receivedError = error
+                }
+                expectation.fulfill()
+            }, receiveValue: { users in
+                receivedUsers = users
+            })
+            .store(in: &cancellables)
+
+        waitForExpectations(timeout: 1.0, handler: nil)
 
         // Then
         XCTAssertNotNil(receivedUsers)
