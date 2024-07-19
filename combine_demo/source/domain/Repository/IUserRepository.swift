@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import Combine
 
 protocol IUserRepository {
-    
+    func fetchUsers() -> AnyPublisher<[DTOUser], APIError>
 }
